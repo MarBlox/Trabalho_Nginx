@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  app:
+    image: my_app:latest
+  nginx:
+    image: nginx:latest
+    container_name: webserver_nginx
+    volumes:
+          - ./https/nginx.conf:/etc/nginx/nginx.conf
+          - ./https/backend.conf:/etc/nginx/sites-enabled/backend.template
+          - ./https/dhparam.pem:/etc/nginx/ssl/dhparam.pem
+          - ./https/certs/chave-privada.pem:/etc/chave-privada.pem # New Line!
+          - ./https/certificado.pem:/etc/nginx/certificado.pem # New Line!
+    ports:
+          - 80:80
+          - 443:443
+    environment:
+        - SITE_DOMAIN=dev.reciperi.com
+
+    command: /bin/bash -c "envsubst '$${SITE_DOMAIN}'< /etc/nginx/sites-enabled/backend.template > /etc/nginx/sites-enabled/backend.conf && exec nginx -g 'daemon off;'"
+
+    backend:
+        # image: elixir:$ELIXIR_VERSION
+        image: containous/whoami:v1.3.0
+        command:
+          # It tells whoami to start listening on 8082 instead of 80
+          - --port=4000
+        container_name: backend
+        expose:
+          - "4000" 
