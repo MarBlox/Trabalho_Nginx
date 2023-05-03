@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ngnix</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .texto {
+      text-align: center;
+    }
+  </style>
+</head>
+    <body>
+        <h1> Ta Fucionando!!! Professor Paulo Leite </h1>
+    </body>
+<body>
+  <script>
+    var usedColors = []; // array para armazenar as cores já usadas
+    
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    
+    function setRandomBackground() {
+      var color = getRandomColor();
+      if (usedColors.indexOf(color) === -1) { // verifica se a cor já foi usada antes
+        document.body.style.backgroundColor = color;
+        usedColors.push(color);
+      } else {
+        setRandomBackground(); // se a cor já foi usada, gera uma nova cor aleatória
+      }
+    }
+    
+    setInterval(setRandomBackground, 1000); // chama a função setRandomBackground a cada segundo
+  </script>
+</body>
+</html>
