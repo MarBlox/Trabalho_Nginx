@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  nginx:
+    image: nginx:stable
+    ports:
+      - "80:80"
+    container_name: https
+    volumes:
+     - ./html:/usr/share/nginx/html:ro
+    tty: true
